@@ -200,6 +200,7 @@ const favoritesGrid = document.querySelector("#favorites-grid");
 const searchInput = document.querySelector("#quote-search");
 const favoriteSearchInput = document.querySelector("#favorite-search");
 const toast = document.querySelector("#toast");
+const aiEndpoint = document.querySelector('meta[name="obioma-ai-endpoint"]').content;
 let activeCategory = "All";
 let activeMood = "All";
 let quotePage = 1;
@@ -803,7 +804,7 @@ function getOfflineAnswer(question) {
   return `${answer.text}\n\nTry asking yourself: ${answer.prompt}\n\nYour ${currentQuote.category.toLowerCase()} quote is a prompt, not pressure—keep what helps and leave what does not.`;
 }
 
-document.querySelector("#question-form").addEventListener("submit", (event) => {
+document.querySelector("#question-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const questionInput = document.querySelector("#question-input");
   const question = questionInput.value.trim();
@@ -811,8 +812,43 @@ document.querySelector("#question-form").addEventListener("submit", (event) => {
     questionInput.focus();
     return;
   }
-  document.querySelector("#answer-text").textContent = getOfflineAnswer(question);
-  document.querySelector("#question-answer").hidden = false;
+
+  const form = event.currentTarget;
+  const submitButton = form.querySelector('button[type="submit"]');
+  const answerCard = document.querySelector("#question-answer");
+  const answerLabel = document.querySelector("#answer-label");
+  const answerText = document.querySelector("#answer-text");
+  submitButton.disabled = true;
+  submitButton.textContent = "Thinking…";
+  answerLabel.textContent = "ASKING GEMINI";
+  answerText.textContent = "Finding a helpful answer…";
+  answerCard.hidden = false;
+
+  try {
+    const response = await fetch(new URL(aiEndpoint, window.location.href), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, quote: currentQuote.text })
+    });
+    let result;
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("Live AI is not connected to this version of the app yet.");
+    }
+    if (!response.ok) throw new Error(result.error || "Live AI could not answer right now.");
+    if (typeof result.answer !== "string" || !result.answer.trim()) {
+      throw new Error("Live AI returned an empty answer. Please try again.");
+    }
+    answerLabel.textContent = "LIVE AI ANSWER";
+    answerText.textContent = result.answer.trim();
+  } catch (error) {
+    answerLabel.textContent = "OFFLINE REFLECTION · AI UNAVAILABLE";
+    answerText.textContent = `${getOfflineAnswer(question)}\n\n${error.message}`;
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = 'Get an AI answer <span aria-hidden="true">→</span>';
+  }
 });
 
 function showPage(page) {

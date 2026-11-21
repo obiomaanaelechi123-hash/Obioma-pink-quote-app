@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="OBIOMA" />
+    <meta name="obioma-ai-endpoint" content="./api/answer" />
     <meta
       name="description"
       content="A gentle daily reminder to keep believing, growing, and becoming. Find your next little spark of inspiration with OBIOMA."
@@ -144,15 +145,15 @@
             <section class="ask-card" aria-labelledby="ask-title">
               <p class="eyebrow">A QUIET PLACE TO THINK</p>
               <h2 id="ask-title">Ask Obioma</h2>
-              <p class="ask-intro">Ask what’s on your mind. Get a thoughtful answer instantly, even offline.</p>
+              <p class="ask-intro">Ask what’s on your mind. Get a direct AI answer online, or an offline reflection when disconnected.</p>
               <form id="question-form">
                 <label for="question-input">What would you like help thinking through?</label>
                 <textarea id="question-input" rows="3" maxlength="500" placeholder="For example: How do I keep going after a setback?" required></textarea>
-                <button class="ask-submit" type="submit">Find a little guidance <span aria-hidden="true">→</span></button>
+                <button class="ask-submit" type="submit">Get an AI answer <span aria-hidden="true">→</span></button>
               </form>
-              <p class="ask-privacy">Your question stays on this device. Answers are instant and offline, not live AI or professional advice.</p>
+              <p class="ask-privacy">Questions are sent to Google Gemini to generate answers. Avoid sharing sensitive details. Offline reflections are available if AI cannot connect.</p>
               <div class="answer-card" id="question-answer" aria-live="polite" hidden>
-                <p class="answer-label">A THOUGHT TO CARRY WITH YOU</p>
+                <p class="answer-label" id="answer-label">LIVE AI ANSWER</p>
                 <p id="answer-text"></p>
               </div>
             </section>

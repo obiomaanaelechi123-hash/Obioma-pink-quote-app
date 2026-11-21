@@ -24,9 +24,19 @@ python3 -m http.server 8000
 
 Then visit [http://localhost:8000](http://localhost:8000). Keeping the files on a local server also enables the browser's native share and clipboard features where supported.
 
-## Publish with GitHub Pages
+## Publish the static app
 
 Push this project to GitHub, then open the repository's **Settings → Pages**. Select **Deploy from a branch**, choose the `main` branch and `/ (root)` folder, and save. GitHub Pages will publish `index.html` and its accompanying assets.
+
+## Enable live AI answers
+
+The Gemini API key must stay on a server; GitHub Pages cannot run the AI endpoint by itself.
+
+1. Import this repository into Vercel and deploy it with the repository root as the project root.
+2. In Vercel project settings, add `GEMINI_API_KEY` as an environment variable. Never put the key in `app.js`, HTML, or Git.
+3. Redeploy and use the Vercel app URL. Its `/api/answer` endpoint sends questions to Gemini 3.5 Flash-Lite.
+
+If you keep the GitHub Pages front end, change the `obioma-ai-endpoint` meta value in `index.html` to your Vercel `/api/answer` URL and set Vercel's `APP_ORIGIN` to `https://obiomaanaelechi123-hash.github.io` to allow that page. Gemini API quotas and charges may apply. If the live endpoint is unavailable, the app clearly labels its local reflection fallback.
 
 ## Features
 
@@ -38,7 +48,7 @@ Push this project to GitHub, then open the repository's **Settings → Pages**. 
 - Offline animated lessons with a reflection question for each quote. These are illustrated animations made by the app, not filmed videos.
 - Real interview clips matched to quote categories: Malala Yousafzai on equality (Success, Motivation, and Faith) and Nelson Mandela on Ubuntu (Life, Love, and Happiness). Stream them online or save each clip on this device for offline playback. The same topic-matched clips serve the generated quotes; the app does not download one separate video for every generated quote.
 - A story-notes section and source/license credits accompany each video. The included clips are redistributed under their Creative Commons licenses.
-- An instant, offline question guide that matches common themes to thoughtful prompts. It is not a live AI service, does not send or save questions, and is not professional advice.
+- A live Gemini AI question-and-answer assistant when deployed with the Vercel endpoint. The browser never receives the API key. Questions are sent to Google to generate answers; avoid entering sensitive personal information. A locally generated reflection remains available offline.
 - Answers to reflection questions are saved in local browser storage on this device. They are not uploaded or synchronized and are not encrypted.
 - "New thought" suggestions learn which moods you tend to save and favor those moods.
 - Native sharing when available, with a clipboard fallback.
