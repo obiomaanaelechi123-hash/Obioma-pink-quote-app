@@ -1,4 +1,4 @@
-const CACHE_NAME = "obioma-v2";
+const CACHE_NAME = "obioma-v3";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -23,10 +23,15 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin === self.location.origin && requestUrl.pathname.includes("/media/")) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
-      if (response.ok && new URL(event.request.url).origin === self.location.origin) {
+      if (response.status === 200 && !event.request.headers.has("range") && requestUrl.origin === self.location.origin) {
         const copy = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
       }

@@ -95,73 +95,51 @@ const lessons = {
 };
 
 const stories = {
-  katherine: {
-    person: "Katherine Johnson · Mathematics & spaceflight",
-    title: "The steady work behind a giant leap",
-    summary: "A gifted mathematician whose calculations helped NASA plan early human spaceflights.",
-    source: "https://www.nasa.gov/people/katherine-johnson-biography/",
-    sourceLabel: "NASA biography",
-    takeaway: "Katherine Johnson's career is a reminder that careful, consistent work can shape important progress—even when recognition comes later.",
-    question: "What skill could you keep practicing, one small step at a time?",
-    scenes: [
-      "Katherine Johnson loved mathematics from an early age and worked hard to continue her education.",
-      "She became a mathematician at the organization that would become NASA, at a time when barriers limited many Black women.",
-      "Her calculations helped plan early U.S. human spaceflight. Astronaut John Glenn asked for her to check the numbers for his 1962 orbital mission.",
-      "Her story honors both her skill and persistence—and the importance of making room for talent."
-    ]
-  },
-  serena: {
-    person: "Serena Williams · Tennis",
-    title: "Practice, patience, and a long game",
-    summary: "From years of training to a record-setting career, Serena Williams kept meeting the work in front of her.",
-    source: "https://www.britannica.com/biography/Serena-Williams",
-    sourceLabel: "Encyclopaedia Britannica biography",
-    takeaway: "A remarkable career is built over time. Practice matters, and so do rest, support, and the courage to keep learning.",
-    question: "What is one part of your goal you can practice this week?",
-    scenes: [
-      "Serena Williams began training in tennis as a child alongside her sister Venus.",
-      "Years of practice prepared her for the pressure of professional competition.",
-      "She won 23 Grand Slam singles titles in the Open Era, building one of tennis's most accomplished careers.",
-      "Her journey shows that a big achievement can hold years of effort, setbacks, support, and growth."
-    ]
-  },
-  nelson: {
-    person: "Nelson Mandela · South Africa",
-    title: "A life devoted to a more just future",
-    summary: "Nelson Mandela spent decades opposing apartheid and later became South Africa's first democratically elected president.",
-    source: "https://www.nobelprize.org/prizes/peace/1993/mandela/facts/",
-    sourceLabel: "Nobel Prize biography",
-    takeaway: "Mandela's life was shaped by a long struggle against injustice. His story is about collective effort and reconciliation, not an easy or solitary path.",
-    question: "What value do you want your next choice to stand for?",
-    scenes: [
-      "Nelson Mandela joined the struggle against apartheid, a system of racial segregation and discrimination in South Africa.",
-      "His activism led to 27 years in prison. The hardship was real; it should not be mistaken for a simple lesson about success.",
-      "After his release, he worked toward negotiations and a democratic future for the country.",
-      "In 1994, Mandela became South Africa's first democratically elected president. His story points to courage, justice, and working together."
-    ]
-  },
   malala: {
-    person: "Malala Yousafzai · Education advocate",
-    title: "Keeping education in the story",
-    summary: "Malala Yousafzai continued advocating for girls' education and became the youngest Nobel Peace Prize laureate.",
-    source: "https://www.nobelprize.org/prizes/peace/2014/yousafzai/facts/",
-    sourceLabel: "Nobel Prize biography",
-    takeaway: "Malala's story is about education, advocacy, and community. No one should have to face danger to have the right to learn.",
-    question: "What is something you believe is worth learning or standing up for?",
+    person: "Malala Yousafzai · Equality & education",
+    title: "Malala: Feminism Is Not Complicated",
+    summary: "In a World Economic Forum interview, Malala shares her perspective on equality.",
+    video: "./media/malala-equality-interview.webm",
+    source: "https://commons.wikimedia.org/wiki/File:Malala-_Feminism_Is_Not_Complicated.webm",
+    sourceLabel: "World Economic Forum via Wikimedia Commons",
+    license: "CC BY 3.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+    attribution: "Video: World Economic Forum, via Wikimedia Commons (CC BY 3.0).",
+    takeaway: "This short interview is about equality and speaking up for what matters. It is a topical conversation, not a full biography.",
+    question: "What is one value you would like to put into practice?",
     scenes: [
-      "Growing up in Pakistan's Swat Valley, Malala Yousafzai spoke publicly about every girl's right to education.",
-      "She survived an attack for that advocacy. Her experience was painful and unjust—not a challenge anyone should have to endure.",
-      "After recovering, she continued speaking and working with others to support education for girls.",
-      "In 2014, she became the youngest Nobel Peace Prize laureate. Her story keeps the focus on the right to learn."
+      "Malala Yousafzai is an education advocate and Nobel Peace Prize laureate.",
+      "In this interview, she talks about equality and what feminism means to her.",
+      "Her words invite us to consider whose opportunities and voices are being supported.",
+      "Keep the conversation thoughtful: lasting progress is built with other people, not alone."
+    ]
+  },
+  mandela: {
+    person: "Nelson Mandela · Community & humanity",
+    title: "Nelson Mandela on Ubuntu",
+    summary: "In a real interview excerpt, Mandela explains Ubuntu and our responsibility to one another.",
+    video: "./media/mandela-ubuntu-interview.ogv",
+    source: "https://commons.wikimedia.org/wiki/File:Experience_ubuntu.ogv",
+    sourceLabel: "Experience Ubuntu · Wikimedia Commons",
+    license: "CC BY-SA 2.5",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/2.5/",
+    attribution: "Video: Canonical Ltd., via Wikimedia Commons (CC BY-SA 2.5).",
+    takeaway: "Mandela describes Ubuntu as a way to think about how our wellbeing is connected to other people and our community.",
+    question: "What is one small way you could help someone around you feel supported?",
+    scenes: [
+      "Nelson Mandela was a South African anti-apartheid leader and the country's first democratically elected president.",
+      "In this interview excerpt, he is asked to describe Ubuntu, a philosophy of shared humanity.",
+      "Mandela connects individual wellbeing with the ways people support their communities.",
+      "His answer offers a prompt: achievement can matter even more when it helps others, too."
     ]
   }
 };
 const storyForCategory = {
-  Success: stories.katherine,
-  Motivation: stories.serena,
-  Life: stories.nelson,
-  Love: stories.malala,
-  Happiness: stories.serena,
+  Success: stories.malala,
+  Motivation: stories.malala,
+  Life: stories.mandela,
+  Love: stories.mandela,
+  Happiness: stories.mandela,
   Faith: stories.malala
 };
 
@@ -214,6 +192,7 @@ const quoteByStaticId = new Map(quotes.map((quote) => [quote.id, quote]));
 const storageKey = "obioma-favorites";
 const legacyStorageKey = "obiomaSaved";
 const reflectionsStorageKey = "obioma-private-reflections";
+const offlineVideosCache = "obioma-offline-videos-v1";
 const homePage = document.querySelector("#home-page");
 const favoritesPage = document.querySelector("#favorites-page");
 const quoteGrid = document.querySelector("#quote-grid");
@@ -233,6 +212,7 @@ let lessonStepIndex = 0;
 let lessonReturnFocus = null;
 let isStoryPlaying = false;
 let currentStory = null;
+let storyVideoObjectUrl = null;
 let reflections = readReflections();
 
 function getDailyQuote() {
@@ -555,12 +535,23 @@ function openLesson(quote) {
   lessonReturnFocus = document.activeElement;
   const dialog = document.querySelector(".lesson-dialog");
   const screen = document.querySelector("#lesson-screen");
+  const storyVideo = document.querySelector("#story-video");
+  storyVideo.pause();
+  storyVideo.removeAttribute("src");
+  storyVideo.load();
+  releaseStoryVideoObjectUrl();
+  storyVideo.hidden = true;
+  document.querySelector("#story-video-tools").hidden = true;
+  document.querySelector("#story-notes").hidden = true;
+  document.querySelector(".lesson-player-controls").hidden = false;
+  screen.hidden = false;
   screen.dataset.mood = quote.mood;
   document.querySelector("#lesson-eyebrow").textContent = "OFFLINE ANIMATED LESSON · NO EXTERNAL VIDEO";
   document.querySelector("#lesson-title").textContent = lesson.title;
   document.querySelector("#lesson-takeaway").textContent = lesson.takeaway;
   document.querySelector("#reflection-question").textContent = lesson.question;
   document.querySelector("#story-footnote").hidden = true;
+  document.querySelector("#download-story-video").disabled = false;
   document.querySelector("#reflection-answer").value = typeof reflections[quote.id] === "string" ? reflections[quote.id] : "";
   document.querySelector("#reflection-status").textContent = reflections[quote.id] ? "Your answer is saved on this device." : "Only saved on this device.";
   document.querySelector("#lesson-dialog").hidden = false;
@@ -579,21 +570,129 @@ function openStory(quote) {
   lessonSteps = currentStory.scenes;
   lessonReturnFocus = document.activeElement;
   const screen = document.querySelector("#lesson-screen");
+  const storyVideo = document.querySelector("#story-video");
+  storyVideo.pause();
+  storyVideo.removeAttribute("src");
+  storyVideo.load();
+  releaseStoryVideoObjectUrl();
+  storyVideo.hidden = false;
+  document.querySelector("#story-video-tools").hidden = false;
+  document.querySelector(".lesson-player-controls").hidden = true;
+  screen.hidden = true;
   screen.dataset.mood = quote.mood;
-  document.querySelector("#lesson-eyebrow").textContent = "OFFLINE ILLUSTRATED STORY · HISTORICAL BIOGRAPHY";
+  document.querySelector("#lesson-eyebrow").textContent = "REAL INTERVIEW CLIP · SAVE TO WATCH OFFLINE";
   document.querySelector("#lesson-title").textContent = currentStory.title;
   document.querySelector("#lesson-takeaway").textContent = currentStory.takeaway;
   document.querySelector("#reflection-question").textContent = currentStory.question;
   document.querySelector("#story-source").href = currentStory.source;
   document.querySelector("#story-source").textContent = currentStory.sourceLabel;
+  document.querySelector("#story-license").href = currentStory.licenseUrl;
+  document.querySelector("#story-license").textContent = currentStory.license;
+  document.querySelector("#story-attribution").textContent = currentStory.attribution;
+  document.querySelector("#story-video-download").href = currentStory.video;
+  document.querySelector("#story-video-download").download = currentStory.video.split("/").pop();
+  document.querySelector("#story-notes-list").replaceChildren(
+    ...currentStory.scenes.map((scene) => {
+      const item = document.createElement("li");
+      item.textContent = scene;
+      return item;
+    })
+  );
+  document.querySelector("#story-notes").hidden = false;
   document.querySelector("#story-footnote").hidden = false;
+  document.querySelector("#story-video-status").textContent = "Stream online or save a copy for offline playback.";
+  document.querySelector("#download-story-video").disabled = false;
   document.querySelector("#reflection-answer").value = typeof reflections[quote.id] === "string" ? reflections[quote.id] : "";
   document.querySelector("#reflection-status").textContent = reflections[quote.id] ? "Your answer is saved on this device." : "Only saved on this device.";
   document.querySelector("#lesson-dialog").hidden = false;
   document.body.style.overflow = "hidden";
-  renderLessonStep();
-  setLessonPlaying(true);
+  loadStoryVideo(currentStory);
   document.querySelector("#lesson-close").focus();
+}
+
+function releaseStoryVideoObjectUrl() {
+  if (!storyVideoObjectUrl) return;
+  URL.revokeObjectURL(storyVideoObjectUrl);
+  storyVideoObjectUrl = null;
+}
+
+async function loadStoryVideo(story) {
+  const video = document.querySelector("#story-video");
+  const status = document.querySelector("#story-video-status");
+  const sourceUrl = new URL(story.video, window.location.href).href;
+  try {
+    if ("caches" in window) {
+      const cache = await caches.open(offlineVideosCache);
+      const savedVideo = await cache.match(sourceUrl);
+      if (savedVideo) {
+        releaseStoryVideoObjectUrl();
+        storyVideoObjectUrl = URL.createObjectURL(await savedVideo.blob());
+        video.src = storyVideoObjectUrl;
+        status.textContent = "Saved on this device. This copy plays offline.";
+        document.querySelector("#download-story-video").textContent = "Remove offline copy";
+        video.load();
+        return;
+      }
+    }
+
+    if (!navigator.onLine) {
+      status.textContent = "This video is not saved offline yet. Connect to the internet to watch or save it.";
+      document.querySelector("#download-story-video").textContent = "Save video for offline";
+      return;
+    }
+
+    video.src = sourceUrl;
+    status.textContent = "Streaming online. Save a copy below for offline playback.";
+    document.querySelector("#download-story-video").textContent = "Save video for offline";
+    video.load();
+  } catch {
+    video.src = sourceUrl;
+    status.textContent = "Offline storage could not be checked. The video can still stream online.";
+    document.querySelector("#download-story-video").textContent = "Try saving offline";
+    video.load();
+  }
+}
+
+async function saveStoryVideoOffline() {
+  if (!currentStory || !("caches" in window)) {
+    document.querySelector("#story-video-status").textContent = "Offline video storage is not available in this browser.";
+    showToast("Offline video storage is not available in this browser.");
+    return;
+  }
+
+  const button = document.querySelector("#download-story-video");
+  const status = document.querySelector("#story-video-status");
+  const sourceUrl = new URL(currentStory.video, window.location.href).href;
+  button.disabled = true;
+  try {
+    const cache = await caches.open(offlineVideosCache);
+    const savedVideo = await cache.match(sourceUrl);
+    if (savedVideo) {
+      document.querySelector("#story-video").pause();
+      await cache.delete(sourceUrl);
+      releaseStoryVideoObjectUrl();
+      document.querySelector("#story-video").src = sourceUrl;
+      document.querySelector("#story-video").load();
+      button.textContent = "Save video for offline";
+      status.textContent = "Offline copy removed. Stream online or save it again.";
+      showToast("Offline video copy removed.");
+      return;
+    }
+
+    status.textContent = "Downloading video. Keep the app open until it finishes.";
+    const response = await fetch(sourceUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Video download failed with HTTP ${response.status}.`);
+    await cache.put(sourceUrl, response.clone());
+    await loadStoryVideo(currentStory);
+    status.textContent = "Video saved on this device for offline playback.";
+    showToast("Story video saved for offline playback.");
+  } catch (error) {
+    status.textContent = "Could not save this video. Check your connection and device storage, then try again.";
+    showToast("The video could not be saved for offline playback.");
+    console.error(error);
+  } finally {
+    button.disabled = false;
+  }
 }
 
 function closeLesson() {
@@ -601,6 +700,11 @@ function closeLesson() {
   if (overlay.hidden) return;
   window.clearInterval(lessonInterval);
   lessonInterval = 0;
+  const storyVideo = document.querySelector("#story-video");
+  storyVideo.pause();
+  storyVideo.removeAttribute("src");
+  storyVideo.load();
+  releaseStoryVideoObjectUrl();
   overlay.hidden = true;
   document.body.style.overflow = "";
   if (lessonReturnFocus instanceof HTMLElement) lessonReturnFocus.focus();
@@ -759,6 +863,7 @@ document.querySelector("#daily-save").addEventListener("click", () => toggleFavo
 document.querySelector("#daily-share").addEventListener("click", () => shareQuote(currentQuote));
 document.querySelector("#daily-lesson").addEventListener("click", () => openLesson(currentQuote));
 document.querySelector("#watch-story").addEventListener("click", () => openStory(currentQuote));
+document.querySelector("#download-story-video").addEventListener("click", saveStoryVideoOffline);
 const installButton = document.querySelector("#install-app");
 let installPrompt = null;
 
@@ -818,6 +923,13 @@ document.querySelector("#lesson-play").addEventListener("click", () => {
 });
 document.querySelector("#lesson-close").addEventListener("click", closeLesson);
 document.querySelector("#save-reflection").addEventListener("click", saveReflection);
+document.querySelector("#story-video").addEventListener("error", () => {
+  if (!document.querySelector("#story-video").hidden) {
+    document.querySelector("#story-video-status").textContent = navigator.onLine
+      ? "This video could not load. Check your connection or try again."
+      : "This video is not saved offline yet. Reconnect and save it for offline playback.";
+  }
+});
 document.querySelector("#reflection-answer").addEventListener("input", () => {
   document.querySelector("#reflection-status").textContent = "Unsaved changes.";
 });

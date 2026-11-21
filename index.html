@@ -125,7 +125,7 @@
 
           <section class="inspiration-tools" aria-label="Stories and questions">
             <section class="story-feature" aria-labelledby="story-feature-title">
-              <p class="eyebrow">REAL JOURNEYS · READY OFFLINE</p>
+              <p class="eyebrow">REAL VIDEOS · MATCHED TO YOUR QUOTE</p>
               <h2 id="story-feature-title">A story for this thought</h2>
               <article class="story-preview">
                 <div class="story-preview-art" aria-hidden="true"><span>✳</span><span>✦</span></div>
@@ -133,9 +133,9 @@
                   <p class="story-person" id="story-person"></p>
                   <h3 id="story-title"></h3>
                   <p id="story-summary"></p>
-                  <p class="story-disclaimer">An illustrated retelling, not original interview footage.</p>
+                  <p class="story-disclaimer">Real, openly licensed video stories, with offline download.</p>
                   <button class="story-play-button" id="watch-story" type="button">
-                    <span aria-hidden="true">▶</span> Play offline story
+                    <span aria-hidden="true">▶</span> Watch story video
                   </button>
                 </div>
               </article>
@@ -144,13 +144,13 @@
             <section class="ask-card" aria-labelledby="ask-title">
               <p class="eyebrow">A QUIET PLACE TO THINK</p>
               <h2 id="ask-title">Ask Obioma</h2>
-              <p class="ask-intro">Ask what’s on your mind. Get a thoughtful reflection instantly, even offline.</p>
+              <p class="ask-intro">Ask what’s on your mind. Get a thoughtful answer instantly, even offline.</p>
               <form id="question-form">
                 <label for="question-input">What would you like help thinking through?</label>
                 <textarea id="question-input" rows="3" maxlength="500" placeholder="For example: How do I keep going after a setback?" required></textarea>
                 <button class="ask-submit" type="submit">Find a little guidance <span aria-hidden="true">→</span></button>
               </form>
-              <p class="ask-privacy">Your question stays on this device. This is a simple offline guide, not a live AI or professional advice.</p>
+              <p class="ask-privacy">Your question stays on this device. Answers are instant and offline, not live AI or professional advice.</p>
               <div class="answer-card" id="question-answer" aria-live="polite" hidden>
                 <p class="answer-label">A THOUGHT TO CARRY WITH YOU</p>
                 <p id="answer-text"></p>
@@ -237,6 +237,14 @@
             <h3 id="lesson-step"></h3>
           </div>
         </div>
+        <video class="story-video" id="story-video" controls playsinline preload="metadata" hidden>
+          Your browser does not support embedded video.
+          <a id="story-video-download" href="#" download>Download the video</a>
+        </video>
+        <div class="story-video-tools" id="story-video-tools" hidden>
+          <button class="story-play-button" id="download-story-video" type="button">Save video for offline</button>
+          <span id="story-video-status" role="status">Stream online or save a copy for offline playback.</span>
+        </div>
         <div class="lesson-player-controls">
           <button class="lesson-play-button" id="lesson-play" type="button"><span aria-hidden="true">Ⅱ</span> Pause lesson</button>
           <div class="lesson-progress" id="lesson-progress" aria-label="Lesson progress">
@@ -246,9 +254,14 @@
         <div class="lesson-content">
           <p class="lesson-takeaway" id="lesson-takeaway"></p>
           <p class="story-footnote" id="story-footnote" hidden>
-            This offline animation is an illustrated retelling, not recorded footage.
-            <a id="story-source" href="#" target="_blank" rel="noopener noreferrer">Read a source</a>
+            <span id="story-attribution"></span>
+            <a id="story-source" href="#" target="_blank" rel="noopener noreferrer">Video source</a>
+            · <a id="story-license" href="#" target="_blank" rel="noopener noreferrer">License</a>
           </p>
+          <details class="story-notes" id="story-notes" hidden>
+            <summary>Read story notes</summary>
+            <ol id="story-notes-list"></ol>
+          </details>
           <div class="reflection-box">
             <label for="reflection-answer">PAUSE &amp; REFLECT</label>
             <p class="reflection-question" id="reflection-question"></p>
