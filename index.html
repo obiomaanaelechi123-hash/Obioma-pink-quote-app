@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbf8f2" />
+    <meta
+      name="description"
+      content="A gentle daily reminder to keep believing, growing, and becoming. Find your next little spark of inspiration with OBIOMA."
+    />
+    <title>OBIOMA — A little light for every day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" data-page="home" aria-label="OBIOMA home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <path d="M22 4.5c2.4 8.3 7 13.1 15.5 17.5-8.5 4.4-13.1 9.2-15.5 17.5C19.6 31.2 15 26.4 6.5 22 15 17.6 19.6 12.8 22 4.5Z" fill="currentColor" />
+              <circle cx="22" cy="22" r="3.3" fill="#FBF8F2" />
+            </svg>
+          </span>
+          <span class="brand-word">obioma<span>.</span></span>
+        </a>
+
+        <p class="nav-label">YOUR SPACE</p>
+        <nav class="primary-nav">
+          <button class="nav-link is-active" data-page="home" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 19v-9Z" /><path d="M9 20.5v-7h6v7" /></svg>
+            <span>Today</span>
+          </button>
+          <button class="nav-link" data-page="favorites" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 4.7-8.8 10-8.8 10s-8.8-5.3-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z" /></svg>
+            <span>My favorites</span>
+            <span class="favorite-count" id="favorite-count">0</span>
+          </button>
+        </nav>
+
+        <p class="nav-label category-label">EXPLORE BY MOOD</p>
+        <nav class="category-nav" id="category-nav" aria-label="Quote categories"></nav>
+
+        <div class="sidebar-note">
+          <span class="note-sparkle" aria-hidden="true">✳</span>
+          <p>A little reminder:<br /><strong>You are becoming.</strong></p>
+        </div>
+
+        <p class="sidebar-footer">MADE WITH CARE <span aria-hidden="true">♥</span></p>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <a class="mobile-brand" href="#" data-page="home" aria-label="OBIOMA home">
+            <span class="mobile-brand-mark" aria-hidden="true">✳</span>
+            obioma<span>.</span>
+          </a>
+          <div class="topbar-date" id="topbar-date"></div>
+          <button class="topbar-favorite" data-page="favorites" type="button" aria-label="Open favorites">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 4.7-8.8 10-8.8 10s-8.8-5.3-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z" /></svg>
+            <span id="topbar-favorite-count">0</span>
+          </button>
+        </header>
+
+        <section class="page-view" id="home-page" aria-labelledby="welcome-title">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-star" aria-hidden="true">✳</span> YOUR DAILY MOMENT OF CALM</p>
+              <h1 id="welcome-title">A little light<br class="mobile-break" /> for every day<span class="heading-period">.</span></h1>
+              <p class="welcome-copy">Take a breath. Find a thought to carry with you.</p>
+            </div>
+            <div class="welcome-sun" aria-hidden="true">
+              <span class="sun-center">✳</span><span class="sun-caption">GROW<br />AT YOUR<br />OWN PACE</span>
+            </div>
+          </div>
+
+          <section class="daily-card" aria-label="Today's daily quote">
+            <div class="daily-card-top">
+              <span class="daily-pill"><span aria-hidden="true">✦</span> TODAY'S LITTLE REMINDER</span>
+              <span class="daily-date" id="daily-date"></span>
+            </div>
+            <div class="quote-decoration" aria-hidden="true">“</div>
+            <blockquote class="daily-quote" id="daily-quote"></blockquote>
+            <div class="daily-card-bottom">
+              <div>
+                <p class="quote-author" id="daily-author"></p>
+                <span class="quote-category" id="daily-category"></span>
+              </div>
+              <div class="quote-actions">
+                <button class="icon-button daily-lesson" id="daily-lesson" type="button" aria-label="Watch a lesson for today's quote" title="Watch offline lesson">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 10 6-10 6V6Z" /></svg>
+                </button>
+                <button class="icon-button daily-save" id="daily-save" type="button" aria-label="Save today's quote" title="Save quote">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 4.7-8.8 10-8.8 10s-8.8-5.3-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z" /></svg>
+                </button>
+                <button class="icon-button" id="daily-share" type="button" aria-label="Share today's quote" title="Share quote">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="m8.2 10.8 7.6-4.6m-7.6 7 7.6 4.6" /></svg>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <div class="daily-bottom-row">
+            <p id="smart-note"><span aria-hidden="true">☼</span> Let these words meet you where you are.</p>
+            <button class="new-quote-button" id="new-quote" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5" /><path d="M5.5 9A7 7 0 0 1 18 6l2 1m-16 10 2 1a7 7 0 0 0 12.5-3" /></svg>
+              A new thought
+            </button>
+          </div>
+
+          <section class="discover-section" aria-labelledby="discover-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">WORDS FOR WHERE YOU ARE</p>
+                <h2 id="discover-title">Find your little spark</h2>
+                <p class="library-count" id="library-count">1,000,054 quotes · ready offline</p>
+              </div>
+              <label class="search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
+                <input id="quote-search" type="search" placeholder="Search a feeling..." autocomplete="off" aria-label="Search quotes" />
+                <button class="clear-search" id="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+              </label>
+            </div>
+            <div class="filter-row" id="filter-row" aria-label="Filter quotes by category"></div>
+            <p class="mood-filter-label">OR PICK A MOOD</p>
+            <div class="mood-filter-row" id="mood-filter-row" aria-label="Find quotes by mood"></div>
+            <div class="quote-grid" id="quote-grid" aria-live="polite"></div>
+            <p class="empty-search" id="empty-search" hidden>No little sparks found. Try another word or feeling.</p>
+            <button class="load-more-button" id="load-more" type="button" hidden>Show more quotes <span aria-hidden="true">↓</span></button>
+          </section>
+
+          <footer class="page-footer">A gentle reminder, whenever you need one. <span aria-hidden="true">✳</span></footer>
+        </section>
+
+        <section class="page-view favorites-page" id="favorites-page" aria-labelledby="favorites-title" hidden>
+          <div class="favorites-heading">
+            <p class="eyebrow"><span class="eyebrow-star" aria-hidden="true">✳</span> YOUR GROWING COLLECTION</p>
+            <h1 id="favorites-title">Kept close<span class="heading-period">.</span></h1>
+            <p class="welcome-copy">The words you want to come back to.</p>
+          </div>
+          <div class="favorites-tools">
+            <p id="favorites-subtitle">A few words, saved just for you.</p>
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
+              <input id="favorite-search" type="search" placeholder="Search your favorites..." autocomplete="off" aria-label="Search favorite quotes" />
+              <button class="clear-search" id="clear-favorite-search" type="button" aria-label="Clear search" hidden>×</button>
+            </label>
+          </div>
+          <div class="quote-grid favorites-grid" id="favorites-grid" aria-live="polite"></div>
+          <div class="empty-favorites" id="empty-favorites" hidden>
+            <span class="empty-heart" aria-hidden="true">♡</span>
+            <h2>Your collection starts here</h2>
+            <p>When a quote speaks to you, tap its heart to keep it close.</p>
+            <button class="text-button" type="button" data-page="home">Find a little spark <span aria-hidden="true">→</span></button>
+          </div>
+          <p class="empty-search" id="empty-favorite-search" hidden>No saved quotes match that search.</p>
+          <footer class="page-footer">A gentle reminder, whenever you need one. <span aria-hidden="true">✳</span></footer>
+        </section>
+      </main>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="mobile-nav-link is-active" data-page="home" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 19v-9Z" /><path d="M9 20.5v-7h6v7" /></svg><span>Today</span>
+      </button>
+      <button class="mobile-nav-link" data-page="favorites" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 4.7-8.8 10-8.8 10s-8.8-5.3-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z" /></svg><span>Favorites</span>
+      </button>
+    </nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="lesson-overlay" id="lesson-dialog" hidden>
+      <section class="lesson-dialog" role="dialog" aria-modal="true" aria-labelledby="lesson-title">
+        <header class="lesson-header">
+          <div>
+            <p class="lesson-eyebrow">OFFLINE ANIMATED LESSON · NO EXTERNAL VIDEO</p>
+            <h2 id="lesson-title">A little lesson</h2>
+          </div>
+          <button class="lesson-close" id="lesson-close" type="button" aria-label="Close lesson">×</button>
+        </header>
+        <div class="lesson-screen" id="lesson-screen" data-mood="calm">
+          <span class="lesson-orbit orbit-one"></span>
+          <span class="lesson-orbit orbit-two"></span>
+          <span class="lesson-sun" aria-hidden="true">✳</span>
+          <span class="lesson-plant" aria-hidden="true">❋</span>
+          <div class="lesson-caption">
+            <p id="lesson-step-count">A LITTLE LESSON · 1 OF 4</p>
+            <h3 id="lesson-step"></h3>
+          </div>
+        </div>
+        <div class="lesson-player-controls">
+          <button class="lesson-play-button" id="lesson-play" type="button"><span aria-hidden="true">Ⅱ</span> Pause lesson</button>
+          <div class="lesson-progress" id="lesson-progress" aria-label="Lesson progress">
+            <span class="is-current"></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="lesson-content">
+          <p class="lesson-takeaway" id="lesson-takeaway"></p>
+          <div class="reflection-box">
+            <label for="reflection-answer">PAUSE &amp; REFLECT</label>
+            <p class="reflection-question" id="reflection-question"></p>
+            <textarea id="reflection-answer" rows="3" maxlength="2000" placeholder="Write whatever feels right. This stays on this device."></textarea>
+            <div class="reflection-footer">
+              <span id="reflection-status" role="status">Only saved on this device.</span>
+              <button id="save-reflection" type="button">Save my answer</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
