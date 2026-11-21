@@ -94,6 +94,77 @@ const lessons = {
   reflective: { title: "Look back with kindness", takeaway: "Reflection is not a test. You can learn from the past while remembering that you were doing the best you could with what you knew.", question: "What did you learn about yourself in a recent season?", steps: ["Remember what that moment asked of you.", "Notice one thing you understand now.", "Carry the lesson, not the blame."] }
 };
 
+const stories = {
+  katherine: {
+    person: "Katherine Johnson · Mathematics & spaceflight",
+    title: "The steady work behind a giant leap",
+    summary: "A gifted mathematician whose calculations helped NASA plan early human spaceflights.",
+    source: "https://www.nasa.gov/people/katherine-johnson-biography/",
+    sourceLabel: "NASA biography",
+    takeaway: "Katherine Johnson's career is a reminder that careful, consistent work can shape important progress—even when recognition comes later.",
+    question: "What skill could you keep practicing, one small step at a time?",
+    scenes: [
+      "Katherine Johnson loved mathematics from an early age and worked hard to continue her education.",
+      "She became a mathematician at the organization that would become NASA, at a time when barriers limited many Black women.",
+      "Her calculations helped plan early U.S. human spaceflight. Astronaut John Glenn asked for her to check the numbers for his 1962 orbital mission.",
+      "Her story honors both her skill and persistence—and the importance of making room for talent."
+    ]
+  },
+  serena: {
+    person: "Serena Williams · Tennis",
+    title: "Practice, patience, and a long game",
+    summary: "From years of training to a record-setting career, Serena Williams kept meeting the work in front of her.",
+    source: "https://www.britannica.com/biography/Serena-Williams",
+    sourceLabel: "Encyclopaedia Britannica biography",
+    takeaway: "A remarkable career is built over time. Practice matters, and so do rest, support, and the courage to keep learning.",
+    question: "What is one part of your goal you can practice this week?",
+    scenes: [
+      "Serena Williams began training in tennis as a child alongside her sister Venus.",
+      "Years of practice prepared her for the pressure of professional competition.",
+      "She won 23 Grand Slam singles titles in the Open Era, building one of tennis's most accomplished careers.",
+      "Her journey shows that a big achievement can hold years of effort, setbacks, support, and growth."
+    ]
+  },
+  nelson: {
+    person: "Nelson Mandela · South Africa",
+    title: "A life devoted to a more just future",
+    summary: "Nelson Mandela spent decades opposing apartheid and later became South Africa's first democratically elected president.",
+    source: "https://www.nobelprize.org/prizes/peace/1993/mandela/facts/",
+    sourceLabel: "Nobel Prize biography",
+    takeaway: "Mandela's life was shaped by a long struggle against injustice. His story is about collective effort and reconciliation, not an easy or solitary path.",
+    question: "What value do you want your next choice to stand for?",
+    scenes: [
+      "Nelson Mandela joined the struggle against apartheid, a system of racial segregation and discrimination in South Africa.",
+      "His activism led to 27 years in prison. The hardship was real; it should not be mistaken for a simple lesson about success.",
+      "After his release, he worked toward negotiations and a democratic future for the country.",
+      "In 1994, Mandela became South Africa's first democratically elected president. His story points to courage, justice, and working together."
+    ]
+  },
+  malala: {
+    person: "Malala Yousafzai · Education advocate",
+    title: "Keeping education in the story",
+    summary: "Malala Yousafzai continued advocating for girls' education and became the youngest Nobel Peace Prize laureate.",
+    source: "https://www.nobelprize.org/prizes/peace/2014/yousafzai/facts/",
+    sourceLabel: "Nobel Prize biography",
+    takeaway: "Malala's story is about education, advocacy, and community. No one should have to face danger to have the right to learn.",
+    question: "What is something you believe is worth learning or standing up for?",
+    scenes: [
+      "Growing up in Pakistan's Swat Valley, Malala Yousafzai spoke publicly about every girl's right to education.",
+      "She survived an attack for that advocacy. Her experience was painful and unjust—not a challenge anyone should have to endure.",
+      "After recovering, she continued speaking and working with others to support education for girls.",
+      "In 2014, she became the youngest Nobel Peace Prize laureate. Her story keeps the focus on the right to learn."
+    ]
+  }
+};
+const storyForCategory = {
+  Success: stories.katherine,
+  Motivation: stories.serena,
+  Life: stories.nelson,
+  Love: stories.malala,
+  Happiness: stories.serena,
+  Faith: stories.malala
+};
+
 const GENERATED_QUOTE_COUNT = 1_000_000;
 const QUOTES_PER_PAGE = 24;
 const quoteIngredients = {
@@ -157,8 +228,11 @@ let currentQuote = getDailyQuote();
 let toastTimeout;
 let lessonInterval = 0;
 let lessonQuote = null;
+let lessonSteps = [];
 let lessonStepIndex = 0;
 let lessonReturnFocus = null;
+let isStoryPlaying = false;
+let currentStory = null;
 let reflections = readReflections();
 
 function getDailyQuote() {
@@ -327,6 +401,14 @@ function renderDailyQuote() {
   document.querySelector("#smart-note").textContent = favorites.length
     ? `✳ Picked for your ${recommendedMood} side, based on the quotes you keep.`
     : `✳ A little ${recommendedMood} reminder, picked just for you.`;
+  renderStoryFeature(currentQuote);
+}
+
+function renderStoryFeature(quote) {
+  currentStory = storyForCategory[quote.category] || stories.malala;
+  document.querySelector("#story-person").textContent = currentStory.person;
+  document.querySelector("#story-title").textContent = currentStory.title;
+  document.querySelector("#story-summary").textContent = currentStory.summary;
 }
 
 function createQuoteCard(quote, favoriteView = false) {
@@ -344,7 +426,7 @@ function createQuoteCard(quote, favoriteView = false) {
     <div class="quote-card-bottom">
       <span class="quote-card-author">— ${quote.author} · ${quote.mood}</span>
       <span class="quote-card-actions">
-        <button class="quote-card-watch" type="button" data-action="lesson" data-id="${quote.id}" aria-label="Watch the ${quote.mood} lesson for this quote">
+        <button class="quote-card-watch" type="button" data-action="story" data-id="${quote.id}" aria-label="Play an offline life story for this quote">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 10 6-10 6V6Z" /></svg>
         </button>
         <button class="quote-card-share" type="button" data-action="share" data-id="${quote.id}" aria-label="Share quote">
@@ -423,10 +505,8 @@ function toggleFavorite(id) {
 }
 
 function renderLessonStep() {
-  const lesson = lessons[lessonQuote.mood];
-  const steps = [lessonQuote.text, ...lesson.steps];
-  document.querySelector("#lesson-step-count").textContent = `A LITTLE LESSON · ${lessonStepIndex + 1} OF ${steps.length}`;
-  document.querySelector("#lesson-step").textContent = steps[lessonStepIndex];
+  document.querySelector("#lesson-step-count").textContent = `${isStoryPlaying ? "OFFLINE STORY" : "A LITTLE LESSON"} · ${lessonStepIndex + 1} OF ${lessonSteps.length}`;
+  document.querySelector("#lesson-step").textContent = lessonSteps[lessonStepIndex];
   document.querySelectorAll("#lesson-progress span").forEach((bar, index) => {
     bar.classList.toggle("is-current", index <= lessonStepIndex);
   });
@@ -435,24 +515,28 @@ function renderLessonStep() {
 function setLessonPlaying(playing) {
   const dialog = document.querySelector(".lesson-dialog");
   const button = document.querySelector("#lesson-play");
+  const playerNoun = isStoryPlaying ? "story" : "lesson";
+  const lastStepIndex = lessonSteps.length - 1;
   window.clearInterval(lessonInterval);
   lessonInterval = 0;
   dialog.classList.toggle("is-paused", !playing);
   button.setAttribute("aria-pressed", String(playing));
 
   if (!playing) {
-    const complete = lessonStepIndex === 3;
-    button.innerHTML = complete ? "<span aria-hidden=\"true\">↻</span> Replay lesson" : "<span aria-hidden=\"true\">▶</span> Play lesson";
+    const complete = lessonStepIndex === lastStepIndex;
+    button.innerHTML = complete
+      ? `<span aria-hidden="true">↻</span> Replay ${playerNoun}`
+      : `<span aria-hidden="true">▶</span> Play ${playerNoun}`;
     return;
   }
 
-  if (lessonStepIndex === 3) lessonStepIndex = 0;
-  button.innerHTML = "<span aria-hidden=\"true\">Ⅱ</span> Pause lesson";
+  if (lessonStepIndex === lastStepIndex) lessonStepIndex = 0;
+  button.innerHTML = `<span aria-hidden="true">Ⅱ</span> Pause ${playerNoun}`;
   renderLessonStep();
   lessonInterval = window.setInterval(() => {
     lessonStepIndex += 1;
-    if (lessonStepIndex >= 4) {
-      lessonStepIndex = 3;
+    if (lessonStepIndex >= lessonSteps.length) {
+      lessonStepIndex = lastStepIndex;
       renderLessonStep();
       setLessonPlaying(false);
       return;
@@ -464,15 +548,45 @@ function setLessonPlaying(playing) {
 function openLesson(quote) {
   if (!quote || !lessons[quote.mood]) return;
   lessonQuote = quote;
+  isStoryPlaying = false;
   lessonStepIndex = 0;
-  lessonReturnFocus = document.activeElement;
   const lesson = lessons[quote.mood];
+  lessonSteps = [quote.text, ...lesson.steps];
+  lessonReturnFocus = document.activeElement;
   const dialog = document.querySelector(".lesson-dialog");
   const screen = document.querySelector("#lesson-screen");
   screen.dataset.mood = quote.mood;
+  document.querySelector("#lesson-eyebrow").textContent = "OFFLINE ANIMATED LESSON · NO EXTERNAL VIDEO";
   document.querySelector("#lesson-title").textContent = lesson.title;
   document.querySelector("#lesson-takeaway").textContent = lesson.takeaway;
   document.querySelector("#reflection-question").textContent = lesson.question;
+  document.querySelector("#story-footnote").hidden = true;
+  document.querySelector("#reflection-answer").value = typeof reflections[quote.id] === "string" ? reflections[quote.id] : "";
+  document.querySelector("#reflection-status").textContent = reflections[quote.id] ? "Your answer is saved on this device." : "Only saved on this device.";
+  document.querySelector("#lesson-dialog").hidden = false;
+  document.body.style.overflow = "hidden";
+  renderLessonStep();
+  setLessonPlaying(true);
+  document.querySelector("#lesson-close").focus();
+}
+
+function openStory(quote) {
+  if (!quote) return;
+  lessonQuote = quote;
+  isStoryPlaying = true;
+  lessonStepIndex = 0;
+  currentStory = storyForCategory[quote.category] || stories.malala;
+  lessonSteps = currentStory.scenes;
+  lessonReturnFocus = document.activeElement;
+  const screen = document.querySelector("#lesson-screen");
+  screen.dataset.mood = quote.mood;
+  document.querySelector("#lesson-eyebrow").textContent = "OFFLINE ILLUSTRATED STORY · HISTORICAL BIOGRAPHY";
+  document.querySelector("#lesson-title").textContent = currentStory.title;
+  document.querySelector("#lesson-takeaway").textContent = currentStory.takeaway;
+  document.querySelector("#reflection-question").textContent = currentStory.question;
+  document.querySelector("#story-source").href = currentStory.source;
+  document.querySelector("#story-source").textContent = currentStory.sourceLabel;
+  document.querySelector("#story-footnote").hidden = false;
   document.querySelector("#reflection-answer").value = typeof reflections[quote.id] === "string" ? reflections[quote.id] : "";
   document.querySelector("#reflection-status").textContent = reflections[quote.id] ? "Your answer is saved on this device." : "Only saved on this device.";
   document.querySelector("#lesson-dialog").hidden = false;
@@ -543,6 +657,60 @@ function showToast(message) {
   toastTimeout = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
 }
 
+function getOfflineAnswer(question) {
+  const normalized = question.toLowerCase();
+  const guidance = [
+    {
+      match: /\b(overwhelmed|anxious|anxiety|stress|worry|worried|fear|scared)\b/,
+      text: "When everything feels urgent, make the moment smaller. If it feels comfortable, take one slow breath, name what needs attention first, and choose one manageable next step. You do not have to solve it all at once.",
+      prompt: "What is the one thing that genuinely needs your attention right now?"
+    },
+    {
+      match: /\b(fail|failure|mistake|setback|rejected|rejection|wrong|didn't work)\b/,
+      text: "A setback can tell you something about the approach, timing, or support you need; it does not define your worth. Give yourself room to feel disappointed, then decide what you can learn and what small next step is still yours to choose.",
+      prompt: "What part of this can you learn from, and what part was outside your control?"
+    },
+    {
+      match: /\b(sad|grief|grieving|loss|lonely|alone|tired|exhausted|hurt)\b/,
+      text: "You do not have to turn a hard feeling into a lesson right away. Try to make today a little gentler, and consider telling someone you trust what kind of support would help. Asking for company or help is a strong next step, too.",
+      prompt: "Who could you safely let in, even with a small message?"
+    },
+    {
+      match: /\b(friend|partner|relationship|love|family|argument|conflict|apolog)\b/,
+      text: "Start with what you know and what you need, rather than guessing what the other person means. When it feels safe, a calm, specific conversation and a clear boundary can help. You deserve respect, and so does the other person.",
+      prompt: "What would you like the other person to understand, in one honest sentence?"
+    },
+    {
+      match: /\b(decide|decision|choice|choose|should i|which|uncertain)\b/,
+      text: "You may not need a perfect choice—just a thoughtful one. List what matters most, what information is missing, and which options you can change later. If the stakes are high, pause and talk it through with someone you trust.",
+      prompt: "Which choice best fits the value that matters most to you here?"
+    },
+    {
+      match: /\b(goal|dream|success|start|begin|motivat|career|study|learn|procrastinat)\b/,
+      text: "Make the goal small enough to begin on an ordinary day. Pick one action you can finish in 10 minutes, decide when you will do it, and let steady practice—not perfection—be the measure of progress.",
+      prompt: "What is the smallest useful action you can take today?"
+    }
+  ].find((item) => item.match.test(normalized));
+
+  const answer = guidance || {
+    text: "A thoughtful place to begin is to separate what you can influence from what you cannot. Name what matters most, give yourself the same patience you would offer someone you care about, and choose one small next step. You can add more context and ask again for a more focused reflection.",
+    prompt: "What would a kind, realistic next step look like for you?"
+  };
+  return `${answer.text}\n\nTry asking yourself: ${answer.prompt}\n\nYour ${currentQuote.category.toLowerCase()} quote is a prompt, not pressure—keep what helps and leave what does not.`;
+}
+
+document.querySelector("#question-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const questionInput = document.querySelector("#question-input");
+  const question = questionInput.value.trim();
+  if (!question) {
+    questionInput.focus();
+    return;
+  }
+  document.querySelector("#answer-text").textContent = getOfflineAnswer(question);
+  document.querySelector("#question-answer").hidden = false;
+});
+
 function showPage(page) {
   const isFavorites = page === "favorites";
   homePage.hidden = isFavorites;
@@ -583,12 +751,14 @@ document.addEventListener("click", (event) => {
     if (actionButton.dataset.action === "favorite") toggleFavorite(actionButton.dataset.id);
     if (actionButton.dataset.action === "share" && quote) shareQuote(quote);
     if (actionButton.dataset.action === "lesson") openLesson(quote);
+    if (actionButton.dataset.action === "story") openStory(quote);
   }
 });
 
 document.querySelector("#daily-save").addEventListener("click", () => toggleFavorite(currentQuote.id));
 document.querySelector("#daily-share").addEventListener("click", () => shareQuote(currentQuote));
 document.querySelector("#daily-lesson").addEventListener("click", () => openLesson(currentQuote));
+document.querySelector("#watch-story").addEventListener("click", () => openStory(currentQuote));
 const installButton = document.querySelector("#install-app");
 let installPrompt = null;
 

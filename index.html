@@ -123,6 +123,41 @@
             </button>
           </div>
 
+          <section class="inspiration-tools" aria-label="Stories and questions">
+            <section class="story-feature" aria-labelledby="story-feature-title">
+              <p class="eyebrow">REAL JOURNEYS · READY OFFLINE</p>
+              <h2 id="story-feature-title">A story for this thought</h2>
+              <article class="story-preview">
+                <div class="story-preview-art" aria-hidden="true"><span>✳</span><span>✦</span></div>
+                <div class="story-preview-copy">
+                  <p class="story-person" id="story-person"></p>
+                  <h3 id="story-title"></h3>
+                  <p id="story-summary"></p>
+                  <p class="story-disclaimer">An illustrated retelling, not original interview footage.</p>
+                  <button class="story-play-button" id="watch-story" type="button">
+                    <span aria-hidden="true">▶</span> Play offline story
+                  </button>
+                </div>
+              </article>
+            </section>
+
+            <section class="ask-card" aria-labelledby="ask-title">
+              <p class="eyebrow">A QUIET PLACE TO THINK</p>
+              <h2 id="ask-title">Ask Obioma</h2>
+              <p class="ask-intro">Ask what’s on your mind. Get a thoughtful reflection instantly, even offline.</p>
+              <form id="question-form">
+                <label for="question-input">What would you like help thinking through?</label>
+                <textarea id="question-input" rows="3" maxlength="500" placeholder="For example: How do I keep going after a setback?" required></textarea>
+                <button class="ask-submit" type="submit">Find a little guidance <span aria-hidden="true">→</span></button>
+              </form>
+              <p class="ask-privacy">Your question stays on this device. This is a simple offline guide, not a live AI or professional advice.</p>
+              <div class="answer-card" id="question-answer" aria-live="polite" hidden>
+                <p class="answer-label">A THOUGHT TO CARRY WITH YOU</p>
+                <p id="answer-text"></p>
+              </div>
+            </section>
+          </section>
+
           <section class="discover-section" aria-labelledby="discover-title">
             <div class="section-heading">
               <div>
@@ -187,7 +222,7 @@
       <section class="lesson-dialog" role="dialog" aria-modal="true" aria-labelledby="lesson-title">
         <header class="lesson-header">
           <div>
-            <p class="lesson-eyebrow">OFFLINE ANIMATED LESSON · NO EXTERNAL VIDEO</p>
+            <p class="lesson-eyebrow" id="lesson-eyebrow">OFFLINE ANIMATED LESSON · NO EXTERNAL VIDEO</p>
             <h2 id="lesson-title">A little lesson</h2>
           </div>
           <button class="lesson-close" id="lesson-close" type="button" aria-label="Close lesson">×</button>
@@ -210,6 +245,10 @@
         </div>
         <div class="lesson-content">
           <p class="lesson-takeaway" id="lesson-takeaway"></p>
+          <p class="story-footnote" id="story-footnote" hidden>
+            This offline animation is an illustrated retelling, not recorded footage.
+            <a id="story-source" href="#" target="_blank" rel="noopener noreferrer">Read a source</a>
+          </p>
           <div class="reflection-box">
             <label for="reflection-answer">PAUSE &amp; REFLECT</label>
             <p class="reflection-question" id="reflection-question"></p>

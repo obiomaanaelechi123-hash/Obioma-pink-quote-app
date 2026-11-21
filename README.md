@@ -12,7 +12,7 @@ Use **Copy install link** to copy the app address and send it to another phone o
 
 The app can also work offline after it has been opened once.
 
-A calm, mobile-friendly quotes app built with plain HTML, CSS, and JavaScript. Browse 54 original starter quotes plus 1,000,000 generated quote combinations across 12 moods, watch self-contained animated lessons, write private reflections, save favorites in your browser, and share quotes with friends.
+A calm, mobile-friendly quotes app built with plain HTML, CSS, and JavaScript. Browse 54 original starter quotes plus 1,000,000 generated quote combinations across 12 moods, watch self-contained animated lessons and illustrated biographies, get instant offline reflections, write private notes, save favorites in your browser, and share quotes with friends.
 
 ## Preview
 
@@ -36,6 +36,8 @@ Push this project to GitHub, then open the repository's **Settings → Pages**. 
 - Mood filters for calm, happy, hopeful, grateful, confident, motivated, loving, lonely, sad, anxious, tired, and reflective.
 - More than one million quotes generated offline as you browse, without downloading or storing a million records. Search and reveal them a page at a time.
 - Offline animated lessons with a reflection question for each quote. These are illustrated animations made by the app, not filmed videos.
+- Quote-matched, offline illustrated stories about Katherine Johnson, Serena Williams, Nelson Mandela, and Malala Yousafzai. The short story scripts are bundled with the app; cited biographies open online when a connection is available. These are not original interviews or recorded footage.
+- An instant, offline question guide that matches common themes to thoughtful prompts. It is not a live AI service, does not send or save questions, and is not professional advice.
 - Answers to reflection questions are saved in local browser storage on this device. They are not uploaded or synchronized and are not encrypted.
 - "New thought" suggestions learn which moods you tend to save and favor those moods.
 - Native sharing when available, with a clipboard fallback.
@@ -43,4 +45,4 @@ Push this project to GitHub, then open the repository's **Settings → Pages**. 
 
 ## Growing the offline library
 
-The app includes 54 hand-written starter quotes and can compose one million additional unique quote variations from the phrase lists in `app.js`. These generated variations appear in pages of 24, so they do not all need to be kept in memory at once. Add more quote entries to the `quotes` array or extend the phrase lists to customize the library. Every quote is assigned a mood and gets that mood's offline animated lesson and reflection question. The animations do not require video downloads or use YouTube. To use filmed videos instead, add licensed video files to the project and update the lesson player to load them.
+The app includes 54 hand-written starter quotes and can compose one million additional unique quote variations from the phrase lists in `app.js`. These generated variations appear in pages of 24, so they do not all need to be kept in memory at once. Add more quote entries to the `quotes` array or extend the phrase lists to customize the library. Every quote is assigned a mood and gets that mood's offline animated lesson and reflection question. The lessons and biographies are self-contained animations and text; they do not include filmed video or use YouTube. Adding real interviews would require licensed video files and a player update.

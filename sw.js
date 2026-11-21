@@ -1,4 +1,4 @@
-const CACHE_NAME = "obioma-v1";
+const CACHE_NAME = "obioma-v2";
 const APP_FILES = [
   "./",
   "./index.html",
