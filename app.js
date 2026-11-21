@@ -589,6 +589,59 @@ document.addEventListener("click", (event) => {
 document.querySelector("#daily-save").addEventListener("click", () => toggleFavorite(currentQuote.id));
 document.querySelector("#daily-share").addEventListener("click", () => shareQuote(currentQuote));
 document.querySelector("#daily-lesson").addEventListener("click", () => openLesson(currentQuote));
+const installButton = document.querySelector("#install-app");
+let installPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+  installButton.hidden = false;
+});
+
+document.querySelector("#copy-app-link").addEventListener("click", async () => {
+  const appUrl = new URL("./", window.location.href).href;
+
+  try {
+    await navigator.clipboard.writeText(appUrl);
+  } catch {
+    const field = document.createElement("textarea");
+    field.value = appUrl;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.append(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  }
+
+  showToast("App link copied.");
+});
+
+installButton.addEventListener("click", async () => {
+  if (!installPrompt) {
+    const isAppleDevice = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    showToast(isAppleDevice
+      ? "Tap Share, then Add to Home Screen."
+      : "Use your browser menu, then choose Install app.");
+    return;
+  }
+
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = null;
+  installButton.hidden = true;
+});
+
+window.addEventListener("appinstalled", () => {
+  installPrompt = null;
+  installButton.hidden = true;
+  showToast("OBIOMA is installed.");
+});
+
+if (window.matchMedia("(display-mode: standalone)").matches) {
+  installButton.hidden = true;
+}
 document.querySelector("#lesson-play").addEventListener("click", () => {
   const isPlaying = document.querySelector("#lesson-play").getAttribute("aria-pressed") === "true";
   setLessonPlaying(!isPlaying);
@@ -631,3 +684,11 @@ renderDailyQuote();
 renderQuotes();
 renderFavorites();
 updateFavoriteCounts();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      showToast("Offline setup is unavailable in this browser.");
+    });
+  });
+}

@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#fbf8f2" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="OBIOMA" />
     <meta
       name="description"
       content="A gentle daily reminder to keep believing, growing, and becoming. Find your next little spark of inspiration with OBIOMA."
     />
     <title>OBIOMA — A little light for every day</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/obioma-icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/obioma-icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -62,6 +69,8 @@
             obioma<span>.</span>
           </a>
           <div class="topbar-date" id="topbar-date"></div>
+          <button class="install-app" id="install-app" type="button">Install app</button>
+          <button class="copy-app-link" id="copy-app-link" type="button">Copy install link</button>
           <button class="topbar-favorite" data-page="favorites" type="button" aria-label="Open favorites">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.9c0 4.7-8.8 10-8.8 10s-8.8-5.3-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z" /></svg>
             <span id="topbar-favorite-count">0</span>

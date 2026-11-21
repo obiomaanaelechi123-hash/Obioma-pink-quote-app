@@ -1,0 +1,19 @@
+{
+  "name": "OBIOMA — Daily Inspiration",
+  "short_name": "OBIOMA",
+  "description": "A calm daily quotes and inspiration app.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf8f2",
+  "theme_color": "#fbf8f2",
+  "icons": [
+    {
+      "src": "icons/obioma-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

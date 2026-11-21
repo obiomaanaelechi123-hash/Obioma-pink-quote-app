@@ -1,12 +1,16 @@
 # OBIOMA — Daily Quotes and Inspiration
 
-## Download
+## Install as an app
 
-Download the app files directly:
+Open OBIOMA in a browser and use the **Install app** button. Where the browser does not show an install prompt:
 
-https://github.com/obiomaanaelechi123-hash/Obioma-pink-quote-app/raw/refs/heads/main/obioma-app.zip
+Use **Copy install link** to copy the app address and send it to another phone or device.
 
-Open `index.html` from the downloaded ZIP in a browser.
+- On iPhone or iPad: open in Safari, tap **Share**, then **Add to Home Screen**.
+- On Android: open the browser menu and choose **Install app** or **Add to Home screen**.
+- On desktop: use the install icon in the browser address bar or the browser menu.
+
+The app can also work offline after it has been opened once.
 
 A calm, mobile-friendly quotes app built with plain HTML, CSS, and JavaScript. Browse 54 original starter quotes plus 1,000,000 generated quote combinations across 12 moods, watch self-contained animated lessons, write private reflections, save favorites in your browser, and share quotes with friends.
 
